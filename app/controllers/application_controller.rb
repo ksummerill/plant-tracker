@@ -42,6 +42,7 @@ class ApplicationController < Sinatra::Base
     # redirect to login
   end
 
+
   # plants_controller...
 
   # if logged in, a user should see all plants, even from other gardeners
@@ -49,7 +50,7 @@ class ApplicationController < Sinatra::Base
     # check that gardener is logged in. If not, redirect to login.
     # @plants = Plant.all
     # @gardener = Helpers....
-    # render plants page
+    # render all_plants erb
   end
 
   # allows gardener to see all their plants
