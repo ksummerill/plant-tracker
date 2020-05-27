@@ -12,7 +12,7 @@ class GardenersController < ApplicationController
   post '/signup' do
     # check all fields have been filled in. if they aren't, flash message to ask user to fill in completely
     # check to see if user exists. If so, flash message to tell them an account exists and redirect to login page
-    # if not, Gardener.create to make a new instance of a Gardener
+    # if not, Gardener.create to make a new instance of a Gardener and log that user in - show them their homepage (my_plants)
     if params.empty?
       flash[:error] = "Please complete all fields to sign up"
       redirect '/signup'
@@ -22,6 +22,7 @@ class GardenersController < ApplicationController
     else
       @gardener = Gardener.create(username: params[:username], email: params[:email], password: params[:password])
       session[:user_id] = @gardener.id
+      # right now, new accounts are redirecting to /login
       redirect '/my_plants'
     end
   end
