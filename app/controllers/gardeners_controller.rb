@@ -17,7 +17,7 @@ class GardenersController < ApplicationController
       flash[:error] = "Please complete all fields to sign up"
       redirect '/signup'
     elsif Gardener.find_by(params[:id])
-      flash[message] = "You've got an account! Let's get you logged in."
+      flash[:message] = "You've got an account! Let's get you logged in."
       redirect '/login'
     else
       @gardener = Gardener.create(username: params[:username], email: params[:email], password: params[:password])
