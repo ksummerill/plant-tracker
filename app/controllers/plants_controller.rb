@@ -1,11 +1,14 @@
 class PlantsController < ApplicationController
 
   # if logged in, a user should see all plants, even from other gardeners
-  get '/plants' do
+  get '/my_plants' do
     # check that gardener is logged in. If not, redirect to login.
-    # @plants = Plant.all
-    # @gardener = Helpers....
-    # render all_plants erb
+    if !Helpers.is_logged_in?(session)
+      redirect '/login'
+    end
+      @plants = Plant.all
+      @gardener = Helpers.current_user(session)
+      erb :'/gardeners/my_plants'
   end
 
   # allows gardener to see all their plants

@@ -1,3 +1,8 @@
-<%# Thinking this isn't its own page but a button that lives in the layout.erb?
+<!-- Thinking this isn't its own page but a button that lives in the layout.erb?
 or lives on the other pages so a user can always logout without having to
-specifically go to the URL %>
+specifically go to the URL -->
+
+<form action="/logout" method="post">
+  Logout?
+  <input type="submit" name="logout" >
+</form>

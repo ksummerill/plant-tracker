@@ -13,15 +13,32 @@
 
     <link rel="stylesheet" href="/stylesheets/main.css" />
   </head>
-  <body>
-    <div class="wrapper">
 
-        <%= yield %>
+
+
+  <body>
+
+    <header class="navbar navbar-fixed-top navbar-inverse">
+      <div class="container">
+        <nav>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Logout</a></li>
+           <!-- <li><a href="#">Log in</a></li> -->
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+
+    <div class="wrapper">
+      <%= yield %>
+    </div>
 
       <footer class="branding">
         <small>&copy; 2020 <strong>PlantTracker</strong></small>
       </footer>
-    </div>
+
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <!--[if lt IE 7]>
