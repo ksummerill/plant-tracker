@@ -1,15 +1,29 @@
 class GardenersController < ApplicationController
 
   get '/signup' do
-  # if not logged in, redirect to signup page
-    erb :'gardeners/signup'
+  # if logged in, redirect to my_plants page
+    if Helpers.is_logged_in?(session)
+      redirect '/gardeners/my_plants'
+    else
+      erb :'/gardeners/signup'
+    end
   end
 
   post '/signup' do
-    # check all fields have been filled in
-    # check to see if user exists.
+    # check all fields have been filled in. if they aren't, flash message to ask user to fill in completely
+    # check to see if user exists. If so, flash message to tell them an account exists and redirect to login page
     # if not, Gardener.create to make a new instance of a Gardener
-    # if so, flash message to tell them an account exists and redirect to login page
+    if params.empty?
+      flash[:error] = "Please complete all fields to sign up"
+      redirect '/signup'
+    elsif Gardener.find_by(params[:id])
+      flash[message] = "You've got an account! Let's get you logged in."
+      redirect '/login'
+    else
+      @gardener = Gardener.create(username: params[:username], email: params[:email], password: params[:password])
+      session[:user_id] = @gardener.id
+      redirect '/my_plants'
+    end
   end
 
   get '/login' do
