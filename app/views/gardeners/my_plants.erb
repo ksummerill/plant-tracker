@@ -5,8 +5,20 @@ each plant is clickable. When clicked, it redirects to that plant's show page
 clickable new button
 logout button -->
 
-Homepage for Gardener
+<div class="welcome">
+  <h3>Welcome, <%= @gardener.username %></h3>
+    <p>
+      What have you planted lately?
+    </p>
+</div>
 
 <ol>
     <!-- list out each plant and that plant's information -->
+    <% @plants.each do |plant| %>
+      <%= @plant.name %>
+      <% end %>
 </ol>
+
+<div class="button">
+  <button type="button"><a href="plants/new">New Plant</a></button>
+</div>

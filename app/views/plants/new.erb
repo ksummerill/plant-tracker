@@ -1,0 +1,27 @@
+<h2>Create a new plant</h2>
+
+<form action='/plants' method="post">
+  <h4><label for="plant_name">Plant name</label>
+    <input type="text" id="name" name="name" value=""></h4><br>
+
+  <h4><label for="plant_sun">Amount of sun needed</label></h4>
+    <input type="radio" id="shade" name="sun" value="shade">
+    <label for="shade">Shade</label><br>
+    <input type="radio" id="partial_sun" name="sun" value="partial_sun">
+    <label for="partial_sun">Partial sun</label><br>
+    <input type="radio" id="full_sun" name="sun" value="full_sun">
+    <label for="full_sun">Full sun</label><br><br>
+
+  <h4><label for="plant_water">Amount of water needed</label></h4>
+    <input type="radio" id="daily" name="water" value="daily">
+    <label for="daily">Daily</label><br>
+    <input type="radio" id="once_week" name="water" value="once_week">
+    <label for="once_week">Once per week</label><br>
+    <input type="radio" id="twice_week" name="water" value="twice_week">
+    <label for="twice_week">Twice per week</label><br>
+
+    <!-- <div class="button"> -->
+      <!-- <button type="submit" id="submit" value="Create Plant"></button> -->
+      <button type="submit" value="Submit">Create Plant</button>
+    <!-- </div> -->
+</form>

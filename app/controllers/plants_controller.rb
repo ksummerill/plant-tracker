@@ -1,8 +1,8 @@
 class PlantsController < ApplicationController
 
-  # if logged in, a user should see all plants, even from other gardeners
+  # if logged in, a user should see their homepage with their plants listed
+  # check that gardener is logged in. If not, redirect to login.
   get '/my_plants' do
-    # check that gardener is logged in. If not, redirect to login.
     if !Helpers.is_logged_in?(session)
       redirect '/login'
     end
@@ -17,23 +17,39 @@ class PlantsController < ApplicationController
     # render gardeners plants page
   end
 
-  get '/plants/new' do
-    # make sure user is logged in.
-    # if not, flash message and redirect to login
-    # render new plant form
+  # make sure user is logged in.
+  # if not, flash message and redirect to login
+  # render new plant form
+  get '/my_plants/new' do
+    if !Helpers.is_logged_in?(session)
+      redirect '/login'
+    end
+      erb :'/plants/new'
   end
 
+  # create plant instance with given params
+  # if any field is empty, flash message: encourage gardener to update
+  # redirect to gardeners home page to see newly created plant
   post '/plants' do
-    # create plant instance with given params
-    # if any field is empty, flash message: encourage gardener to update
-    # redirect to gardeners home page to see newly created plant
+    @plant = Plant.create(params)
+    if params.empty?
+      flash[:message] = "Make sure you fill in all the details."
+    end
+    redirect '/my_plants'
   end
 
   # as a gardener, i want to be able to click on a plant and see that plant's own page
+  # make sure user is logged in.
+  # if not, flash message and redirect to login
+  # else find plant by id and render plant's page
   get '/plants/:id' do
-    # make sure user is logged in.
-    # if not, flash message and redirect to login
-    # else find plant by id and render plant's page
+    if !Helpers.is_logged_in(session)
+      flash[:message] = "You must be logged in to view plants"
+      redirect '/login'
+    else
+      @plant = Plant.find_by(params[:id])
+      erb :'/plants/show_plant'
+    end
   end
 
   # as a gardener, I want to be able to edit a single plants info
