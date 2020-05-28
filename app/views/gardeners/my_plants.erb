@@ -1,6 +1,6 @@
 <!-- Welcome message - this is your homepage
 shows each plant that a gardener has created/edited
-show the plants information
+show the plants information?
 each plant is clickable. When clicked, it redirects to that plant's show page
 clickable new button
 logout button -->
@@ -8,17 +8,18 @@ logout button -->
 <div class="welcome">
   <h3>Welcome, <%= @gardener.username %></h3>
     <p>
-      What have you planted lately?
+      My plants
     </p>
 </div>
 
-<ol>
-    <!-- list out each plant and that plant's information -->
+
+    <!-- list out each plant -->
     <% @plants.each do |plant| %>
-      <%= plant.name %>
-      <% end %>
-</ol>
+        <li><a href="/my_plants/<%= plant.id %>"><%= plant.name %></a></li>
+    <% end %>
+
+<br>
 
 <div class="button">
-  <button type="button"><a href="plants/new">New Plant</a></button>
+  <button type="button"><a href="my_plants/new">New Plant</a></button>
 </div>

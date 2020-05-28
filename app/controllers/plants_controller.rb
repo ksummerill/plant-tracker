@@ -44,8 +44,8 @@ class PlantsController < ApplicationController
   # make sure user is logged in.
   # if not, flash message and redirect to login
   # else find plant by id and render plant's page
-  get '/plants/:id' do
-    if !Helpers.is_logged_in(session)
+  get '/my_plants/:id' do
+    if !Helpers.is_logged_in?(session)
       flash[:message] = "You must be logged in to view plants"
       redirect '/login'
     else
