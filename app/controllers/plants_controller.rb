@@ -31,11 +31,13 @@ class PlantsController < ApplicationController
   # if any field is empty, flash message: encourage gardener to update
   # redirect to gardeners home page to see newly created plant
   post '/plants' do
-    @plant = Plant.create(params)
-    if params.empty?
+    if !params.empty?
+      Plant.create(name: params[:name], amount_of_sun: params[:amount_of_sun], water_frequency: params[:water_frequency], gardener_id: params[:gardener_id])
+      redirect '/my_plants'
+    else
       flash[:message] = "Make sure you fill in all the details."
+      redirect '/my_plants/new'
     end
-    redirect '/my_plants'
   end
 
   # as a gardener, i want to be able to click on a plant and see that plant's own page
