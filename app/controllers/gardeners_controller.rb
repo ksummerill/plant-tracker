@@ -40,7 +40,15 @@ class GardenersController < ApplicationController
   post '/login' do
     # make sure a gardener with these params exists and authenticate them
     # if good, log them in
-    # if not, flash error message to tell them to try again
+    @gardener = Gardener.find_by(username: params[:username])
+    if @gardener && @gardener.authenticate(params[:password])
+      session[:user_id] = @gardener.id
+      redirect '/my_plants'
+    # if not, flash error message to tell them to try again. Redirect to login.
+    else
+      flash[:error] = "We couldn't find you. Please try again!"
+      redirect '/login'
+    end
   end
 
   get '/logout' do
