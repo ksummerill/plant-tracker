@@ -32,7 +32,7 @@ class PlantsController < ApplicationController
   # redirect to gardeners home page to see newly created plant
   post '/plants' do
     if !params.empty?
-      Plant.create(name: params[:name], amount_of_sun: params[:amount_of_sun], water_frequency: params[:water_frequency], gardener_id: params[:gardener_id])
+      Plant.create(name: params[:name], amount_of_sun: params[:amount_of_sun], water_frequency: params[:water_frequency], gardener_id: session[:user_id])
       redirect '/my_plants'
     else
       flash[:message] = "Make sure you fill in all the details."
@@ -49,7 +49,8 @@ class PlantsController < ApplicationController
       flash[:message] = "You must be logged in to view plants"
       redirect '/login'
     else
-      @plant = Plant.find_by(params[:id])
+      @plant = Plant.find_by(params)
+      # binding.pry
       erb :'/plants/show_plant'
     end
   end
