@@ -1,3 +1,30 @@
-edit plant page should give edit fields for name, sun, water
-include a notes field? (open text field to type in whatever notes gardener wants)?
-edit form to also contain option to delete?
+<!-- include a notes field? (open text field to type in whatever notes gardener wants)? -->
+
+<h2><%=@plant.name%></h2>
+
+  <div class="subtext">
+    <h3>Use this form to update information about this plant</h3>
+  </div>
+
+<form action="my_plants/:id" method="post">
+
+  <h4><label for="plant_sun">Amount of sun needed</label></h4>
+    <input type="radio" id="shade" name="amount_of_sun" value="shade">
+    <label for="shade">Shade</label><br>
+    <input type="radio" id="partial_sun" name="amount_of_sun" value="partial_sun">
+    <label for="partial_sun">Partial sun</label><br>
+    <input type="radio" id="full_sun" name="amount_of_sun" value="full_sun">
+    <label for="full_sun">Full sun</label><br><br>
+
+  <h4><label for="plant_water">Amount of water needed</label></h4>
+    <input type="radio" id="daily" name="water_frequency" value="daily">
+    <label for="daily">Daily</label><br>
+    <input type="radio" id="once_week" name="water_frequency" value="once_week">
+    <label for="once_week">Once per week</label><br>
+    <input type="radio" id="twice_week" name="water_frequency" value="twice_week">
+    <label for="twice_week">Twice per week</label><br>
+    <br>
+
+    <div class="button">
+      <button type="submit" value="Submit">Update Plant</button>
+    </div>

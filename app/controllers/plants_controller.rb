@@ -50,17 +50,23 @@ class PlantsController < ApplicationController
       redirect '/login'
     else
       @plant = Plant.find_by(params)
-      # binding.pry
       erb :'/plants/show_plant'
     end
   end
 
   # as a gardener, I want to be able to edit a single plants info
-  get '/plants/:id/edit' do
-    # make sure user is logged in.
-    # if not, flash message and redirect to login
-    # else find plant by id and render edit form
-    # make sure gardeners can't edit other gardeners plants
+  # make sure user is logged in.
+  # if not, flash message and redirect to login
+  # else find plant by id and render edit form
+  # make sure gardeners can't edit other gardeners plants
+  get '/my_plants/:id/edit' do
+    if !Helpers.is_logged_in?(session)
+      flash[:message] = "You must be logged in to view plants"
+      redirect '/login'
+    else
+      @plant = Plant.find_by(params)
+      erb :'/plants/edit_plant'
+    end
   end
 
   post '/plants/:id' do
