@@ -65,13 +65,6 @@ class PlantsController < ApplicationController
       redirect '/login'
     else
       @plant = Plant.find_by_id(params[:id])
-      # @plant gives me:  #<Plant:0x00007f83f408b8b0
-       # id: 15,
-       # name: "orange tree",
-       # amount_of_sun: "full sun",
-       # water_frequency: "twice per week",
-       # gardener_id: 2>
-      # binding.pry
       erb :'/plants/edit_plant'
     end
   end

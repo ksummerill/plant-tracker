@@ -3,7 +3,7 @@ class GardenersController < ApplicationController
   # if logged in, redirect to my_plants page
   get '/signup' do
     if Helpers.is_logged_in?(session)
-      redirect '/gardeners/my_plants'
+      redirect '/my_plants'
     else
       erb :'/gardeners/signup'
     end
