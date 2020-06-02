@@ -15,9 +15,10 @@ class GardenersController < ApplicationController
   post '/signup' do
     if params.none? {|key, value| value == ""}
       @gardener = Gardener.create(username: params[:username], email: params[:email], password: params[:password])
-      session[:user_id] = @gardener.id
+      session[:gardener_id] = @gardener.id
       redirect '/my_plants'
-    else !params.empty? && !Gardener.find_by(params[:email])
+    else
+    # else !params.empty? && !Gardener.find_by(params[:email])
       flash[:error] = "Please complete all fields to sign up"
       redirect '/signup'
     end
@@ -39,7 +40,7 @@ class GardenersController < ApplicationController
   post '/login' do
     @gardener = Gardener.find_by(username: params[:username])
     if @gardener && @gardener.authenticate(params[:password])
-      session[:user_id] = @gardener.id
+      session[:gardener_id] = @gardener.id
       redirect '/my_plants'
     else
       flash[:error] = "We couldn't find you. Please try again!"

@@ -1,6 +1,6 @@
 class PlantsController < ApplicationController
 
-  # if logged in, a user should see their homepage with their plants listed
+  # if logged in, a gardener should see their homepage with their plants listed
   # check that gardener is logged in. If not, redirect to login.
   get '/my_plants' do
     if !Helpers.is_logged_in?(session)
@@ -8,17 +8,12 @@ class PlantsController < ApplicationController
     end
       @plants = Plant.all
       @gardener = Helpers.current_user(session)
+      # binding.pry
       erb :'/gardeners/my_plants'
   end
 
-  # allows gardener to see all their plants
-  get '/plants/:slug' do
-    # @gardener = find by slug
-    # render gardeners plants page
-  end
-
-  # make sure user is logged in.
-  # if not, flash message and redirect to login
+  # if logged in, a gardener should be able to create a new plant
+  # make sure user is logged in. if not, flash message and redirect to login
   # render new plant form
   get '/my_plants/new' do
     if !Helpers.is_logged_in?(session)
@@ -40,9 +35,8 @@ class PlantsController < ApplicationController
     end
   end
 
-  # as a gardener, i want to be able to click on a plant and see that plant's own page
-  # make sure user is logged in.
-  # if not, flash message and redirect to login
+  # as a gardener, I want to be able to click on a plant and see that plant's own page
+  # make sure user is logged in. if not, flash message and redirect to login
   # else find plant by id and render plant's page
   get '/my_plants/:id' do
     if !Helpers.is_logged_in?(session)
@@ -55,8 +49,7 @@ class PlantsController < ApplicationController
   end
 
   # as a gardener, I want to be able to edit a single plants info
-  # make sure user is logged in.
-  # if not, flash message and redirect to login
+  # make sure user is logged in. if not, flash message and redirect to login
   # else find plant by id and render edit form
   # make sure gardeners can't edit other gardeners plants
   get '/my_plants/:id/edit' do
@@ -85,11 +78,20 @@ class PlantsController < ApplicationController
   end
 
   # as a gardener, i want to be able to delete a plant.
+  # make sure user is logged in. if not, flash message and redirect to login
+  # else find plant by id and delete it
+  # redirect to gardeners home page
   post '/plants/:id/delete' do
-    # make sure user is logged in.
-    # if not, flash message and redirect to login
-    # else find plant by id and delete it
-    # redirect to gardeners home page
+    # binding.pry
+    @plant = Plant.find_by(params[:gardener_id])
+    if !Helpers.is_logged_in?(session)
+
+      flash[:error] = "You must be logged in to delete a plant"
+      redirect '/login'
+    else
+      @plant.destroy
+      redirect '/my_plants'
+    end
   end
 
 end

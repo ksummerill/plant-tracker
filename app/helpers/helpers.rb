@@ -3,11 +3,11 @@
 class Helpers
 
   def self.current_user(session)
-    @gardener = Gardener.find(session[:user_id])
+    @gardener = Gardener.find_by(id: session[:gardener_id])
   end
 
   def self.is_logged_in?(session)
-    !!session[:user_id]
+    !!session[:gardener_id]
   end
 
 end
