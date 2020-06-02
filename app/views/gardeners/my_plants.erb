@@ -6,24 +6,17 @@ clickable new button
 logout button -->
 
 <div class="welcome">
-<% if Helpers.is_logged_in?(session) %>
     <h3>Welcome, <%= @gardener.username %></h3>
     <p>My plants</p>
-<%end%>
 </div>
 
 
 
-
     <!-- list out each plant -->
-    <% if Helpers.current_user(session) %>
       <% @plants.each do |plant| %>
-      
+
           <li><a href="/my_plants/<%= plant.id %>"><%= plant.name %></a></li>
           <% end %>
-      <% else %>
-        <%= "You don't have any plants. Click new plant to start your garden." %>
-    <% end %>
 
 <br>
 

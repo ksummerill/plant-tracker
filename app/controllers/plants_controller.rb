@@ -6,9 +6,11 @@ class PlantsController < ApplicationController
     if !Helpers.is_logged_in?(session)
       redirect '/login'
     end
+      # @plants gives me every created plant - THIS IS WHERE YOU NEED TO WORK NEXT
       @plants = Plant.all
+      # @gardener gives me the correct logged in user
       @gardener = Helpers.current_user(session)
-      # binding.pry
+      binding.pry
       erb :'/gardeners/my_plants'
   end
 
@@ -22,12 +24,15 @@ class PlantsController < ApplicationController
       erb :'/plants/new'
   end
 
+  # CREATING PLANT AND ASSOCIATING WITH CORRECT LOGGED IN GARDENER_ID
   # create plant instance with given params
   # if any field is empty, flash message: encourage gardener to update
   # redirect to gardeners home page to see newly created plant
   post '/plants' do
     if !params.empty?
-      Plant.create(name: params[:name], amount_of_sun: params[:amount_of_sun], water_frequency: params[:water_frequency], gardener_id: session[:user_id])
+      @plant = Plant.create(name: params[:name], amount_of_sun: params[:amount_of_sun], water_frequency: params[:water_frequency], gardener_id: session[:gardener_id])
+      @plant.gardener = Helpers.current_user(session)
+      # binding.pry
       redirect '/my_plants'
     else
       flash[:message] = "Make sure you fill in all the details."
