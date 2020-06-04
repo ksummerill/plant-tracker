@@ -6,11 +6,8 @@ class PlantsController < ApplicationController
     if !Helpers.is_logged_in?(session)
       redirect '/login'
     end
-      # @plants gives me every created plant - THIS IS WHERE YOU NEED TO WORK NEXT
       @plants = Helpers.my_plants(session)
-      # @gardener gives me the correct logged in user
       @gardener = Helpers.current_user(session)
-      # binding.pry
       erb :'/gardeners/my_plants'
   end
 
@@ -24,7 +21,6 @@ class PlantsController < ApplicationController
       erb :'/plants/new'
   end
 
-  # CREATING PLANT AND ASSOCIATING WITH CORRECT LOGGED IN GARDENER_ID
   # create plant instance with given params
   # if any field is empty, flash message: encourage gardener to update
   # redirect to gardeners home page to see newly created plant
@@ -87,14 +83,12 @@ class PlantsController < ApplicationController
   # else find plant by id and delete it
   # redirect to gardeners home page
   post '/plants/:id/delete' do
-    # binding.pry
     @plant = Plant.find_by(params[:gardener_id])
     if !Helpers.is_logged_in?(session)
-
       flash[:error] = "You must be logged in to delete a plant"
       redirect '/login'
     else
-      @plant.destroy
+      @plant.delete
       redirect '/my_plants'
     end
   end

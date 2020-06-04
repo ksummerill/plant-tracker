@@ -15,7 +15,6 @@ logout button -->
     <% @plants.each do |plant| %>
       <li><a href="/my_plants/<%= plant.id %>"><%= plant.name %></a></li>
     <% end %>
-    <!-- give me all plants where the gardener_id == Helpers.current_user(session) -->
 
 <br>
 
