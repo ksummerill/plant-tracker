@@ -10,4 +10,10 @@ class Helpers
     !!session[:gardener_id]
   end
 
+  # grab all plants where the session[:gardener_id] == Plant.gardener_id
+  def self.my_plants(session)
+    @gardener = Gardener.find(session[:gardener_id])
+    @my_plants = @gardener.plants
+  end
+
 end

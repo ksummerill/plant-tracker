@@ -7,10 +7,10 @@ class PlantsController < ApplicationController
       redirect '/login'
     end
       # @plants gives me every created plant - THIS IS WHERE YOU NEED TO WORK NEXT
-      @plants = Plant.all
+      @plants = Helpers.my_plants(session)
       # @gardener gives me the correct logged in user
       @gardener = Helpers.current_user(session)
-      binding.pry
+      # binding.pry
       erb :'/gardeners/my_plants'
   end
 
