@@ -58,7 +58,9 @@ class PlantsController < ApplicationController
       flash[:message] = "You must be logged in to view plants"
       redirect '/login'
     else
+      # @plant here gives me Oregano (id = 33) / correct
       @plant = Plant.find_by_id(params[:id])
+      # binding.pry
       erb :'/plants/edit_plant'
     end
   end
@@ -67,14 +69,14 @@ class PlantsController < ApplicationController
   # if the fields aren't empty (are changed), @plant.update with new params
   # redirect to /plants/@plant.id so gardener can see their edited plant
   post '/my_plants/:id' do
-    @plant = Plant.find_by(params[:gardener_id])
-    if !params[:amount_of_sun].empty?
-      @plant.update(amount_of_sun: params[:amount_of_sun])
+    @plant = Plant.find_by_id(params[:id])
+    # if !params[:amount_of_sun].empty?
+      @plant.update(amount_of_sun: params[:amount_of_sun], water_frequency: params[:water_frequency])
       redirect "my_plants/#{@plant.id}"
-    else
-      flash[:message] = "Please make an edit to update"
-      redirect "my_plants/#{@plant.id}"
-    end
+    # else
+    #   flash[:message] = "Please make an edit to update"
+    #   redirect "my_plants/#{@plant.id}"
+    # end
 
   end
 
