@@ -7,21 +7,24 @@
   </div>
 
 <form action="/my_plants/<%= @plant.id %>" method="post">
+  <input id="hidden" type="hidden" name="_method" value="patch">
+
+
 
   <h4><label for="plant_sun">Amount of sun needed</label></h4>
-    <input type="radio" id="shade" name="amount_of_sun" value="shade">
+    <input type="radio" id="shade" name="amount_of_sun" value="shade" <%= 'checked' if @plant.amount_of_sun == "shade" %>>
     <label for="shade">Shade</label><br>
-    <input type="radio" id="partial_sun" name="amount_of_sun" value="partial_sun">
+    <input type="radio" id="partial_sun" name="amount_of_sun" value="partial sun" <%= 'checked' if @plant.amount_of_sun == "partial sun" %>>
     <label for="partial_sun">Partial sun</label><br>
-    <input type="radio" id="full_sun" name="amount_of_sun" value="full_sun">
+    <input type="radio" id="full_sun" name="amount_of_sun" value="full sun" <%= 'checked' if @plant.amount_of_sun == "full sun" %>>
     <label for="full_sun">Full sun</label><br><br>
 
   <h4><label for="plant_water">Amount of water needed</label></h4>
-    <input type="radio" id="daily" name="water_frequency" value="daily">
+    <input type="radio" id="daily" name="water_frequency" value="daily" <%= 'checked' if @plant.water_frequency == "daily" %>>
     <label for="daily">Daily</label><br>
-    <input type="radio" id="once_week" name="water_frequency" value="once_week">
+    <input type="radio" id="once_week" name="water_frequency" value="once per week" <%= 'checked' if @plant.water_frequency == "once per week" %>>
     <label for="once_week">Once per week</label><br>
-    <input type="radio" id="twice_week" name="water_frequency" value="twice_week">
+    <input type="radio" id="twice_week" name="water_frequency" value="twice per week" <%= 'checked' if @plant.water_frequency == "twice per week" %>>
     <label for="twice_week">Twice per week</label><br>
     <br>
 

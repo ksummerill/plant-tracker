@@ -25,10 +25,10 @@ class PlantsController < ApplicationController
   # if any field is empty, flash message: encourage gardener to update
   # redirect to gardeners home page to see newly created plant
   post '/plants' do
-    if !params.empty?
+    if params.all?
       @plant = Plant.create(name: params[:name], amount_of_sun: params[:amount_of_sun], water_frequency: params[:water_frequency], gardener_id: session[:gardener_id])
       @plant.gardener = Helpers.current_user(session)
-      # binding.pry
+      binding.pry
       redirect '/my_plants'
     else
       flash[:message] = "Make sure you fill in all the details."
@@ -65,19 +65,16 @@ class PlantsController < ApplicationController
     end
   end
 
-  # find the plant by the user_id
-  # if the fields aren't empty (are changed), @plant.update with new params
+  # find the plant by id
+  # check fields for new values, @plant.update with new params
   # redirect to /plants/@plant.id so gardener can see their edited plant
-  post '/my_plants/:id' do
+  patch '/my_plants/:id' do
     @plant = Plant.find_by_id(params[:id])
-    # if !params[:amount_of_sun].empty?
+    if !params[:amount_of_sun].empty? && !params[:water_frequency].empty?
       @plant.update(amount_of_sun: params[:amount_of_sun], water_frequency: params[:water_frequency])
+      flash[:message] = "Successfully updated plant."
       redirect "my_plants/#{@plant.id}"
-    # else
-    #   flash[:message] = "Please make an edit to update"
-    #   redirect "my_plants/#{@plant.id}"
-    # end
-
+    end
   end
 
   # as a gardener, i want to be able to delete a plant.
