@@ -1,3 +1,13 @@
+<% if flash.has?(:success) %>
+  <div class="success">
+    <%= flash[:success] %>
+  </div>
+  <% else flash.has?(:error) %>
+    <div class="error">
+      <%= flash[:error] %>
+    </div>
+  <% end %>
+
 <h2>Create a new plant</h2>
 
 <form action='/plants' method="post">

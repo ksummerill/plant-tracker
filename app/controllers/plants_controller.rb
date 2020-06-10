@@ -25,13 +25,13 @@ class PlantsController < ApplicationController
   # if any field is empty, flash message: encourage gardener to update
   # redirect to gardeners home page to see newly created plant
   post '/plants' do
-    if params.all?
+    # created a plant without a name and 'params' gave me {"name"=>"", "amount_of_sun"=>"shade", "water_frequency"=>"daily"}
+    if params.none? {|key, value| value == ""}
       @plant = Plant.create(name: params[:name], amount_of_sun: params[:amount_of_sun], water_frequency: params[:water_frequency], gardener_id: session[:gardener_id])
       @plant.gardener = Helpers.current_user(session)
-      binding.pry
       redirect '/my_plants'
     else
-      flash[:message] = "Make sure you fill in all the details."
+      flash[:error] = "Make sure you fill in all the details."
       redirect '/my_plants/new'
     end
   end
