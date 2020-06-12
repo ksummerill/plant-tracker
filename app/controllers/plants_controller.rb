@@ -82,7 +82,7 @@ class PlantsController < ApplicationController
   # else find plant by id and delete it
   # redirect to gardeners home page
   post '/plants/:id/delete' do
-    @plant = Plant.find_by(params[:gardener_id])
+    @plant = Plant.find_by_id(params[:id])
     if !Helpers.is_logged_in?(session)
       flash[:error] = "You must be logged in to delete a plant"
       redirect '/login'

@@ -18,7 +18,6 @@ class GardenersController < ApplicationController
       session[:gardener_id] = @gardener.id
       redirect '/my_plants'
     else
-    # else !params.empty? && !Gardener.find_by(params[:email])
       flash[:error] = "Please complete all fields to sign up"
       redirect '/signup'
     end
@@ -34,7 +33,6 @@ class GardenersController < ApplicationController
     end
   end
 
-  # LOGGING IN AND ASSIGNING SESSION TO CORRECT GARDENER_ID
   # make sure a gardener with these params exists and authenticate them
   # if good, log them in
   # if not, flash error message to tell them to try again. Redirect to login.
@@ -42,7 +40,6 @@ class GardenersController < ApplicationController
     @gardener = Gardener.find_by(username: params[:username])
     if @gardener && @gardener.authenticate(params[:password])
       session[:gardener_id] = @gardener.id
-      # binding.pry
       redirect '/my_plants'
     else
       flash[:error] = "We couldn't find you. Please try again!"
