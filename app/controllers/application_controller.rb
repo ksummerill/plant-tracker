@@ -12,7 +12,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/' do
-    erb :index
+    erb :'/layouts/index'
   end
 
 end
