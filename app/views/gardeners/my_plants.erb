@@ -4,6 +4,7 @@ show the plants information?
 each plant is clickable. When clicked, it redirects to that plant's show page
 clickable new button
 logout button -->
+<%if @gardener.id == Helpers.current_user(session).id %>
 
 <div class="welcome">
     <h2>Welcome, <%= @gardener.username %></h2>
@@ -17,6 +18,8 @@ logout button -->
         <a href="/my_plants/<%= plant.id %>"><%= plant.name %></a>
       </div>
     <% end %>
+
+<% end %>
 
 <br>
 
