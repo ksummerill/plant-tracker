@@ -2,17 +2,18 @@
 <html>
   <head>
     <title>PlantTracker</title>
-    <link rel="stylesheet" href="public/stylesheets/main.css" />
+    <link rel="stylesheet" href="/stylesheets/main.css" />
   </head>
   <body>
     <div class="navbar">
-      <% if Helpers.is_logged_in?(session) %>
-          <a class="active" href="/my_plants">Home</a>
-          <a href="/logout">Log out</a>
-      <% end %>
+
     </div>
 
    <div class="wrapper">
+     <% if Helpers.is_logged_in?(session) %>
+         <a class="active" href="/my_plants">Home</a>
+         <a href="/logout">Logout</a>
+     <% end %>
       <%= yield %>
    </div>
 
