@@ -3,21 +3,17 @@ shows each plant that a gardener has created/edited
 each plant is clickable. When clicked, it redirects to that plant's show page
 clickable new button -->
 <%if @gardener.id == Helpers.current_user(session).id %>
-
-<div class="welcome">
-    <h2>Welcome, <%= @gardener.username %></h2>
-    <h3>My plants</h3>
-</div>
-<br>
-
-
+    <div class="welcome">
+        <h2>Welcome, <%= @gardener.username %></h2>
+        <h3>My plants</h3>
+    </div>
+    <br>
     <!-- list out each plant for the logged in gardener -->
     <% @plants.each do |plant| %>
       <div class="plant-name">
         <h3><a href="/my_plants/<%= plant.id %>"><%= plant.name %></a></h3>
       </div>
     <% end %>
-
 <% end %>
 
 <br>
