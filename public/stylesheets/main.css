@@ -67,22 +67,12 @@
     style: underline;
   }
 
-
-  /* --- Homepage Styles --- */
-
-  div.plant-name a {
-    list-style-image: url(https://www.clipartkey.com/view/TTbhmx_transparent-sprout-clipart-plant-emoji-iphone/);
-    text-decoration: none;
-    color: #444;
-  }
-
   /* --- Navigation Styles --- */
 
   #nav {
     text-align: right;
     padding-bottom: 8px;
   }
-
 
   /* ALERT STYLING */
 
