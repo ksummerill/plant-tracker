@@ -48,6 +48,7 @@ class GardenersController < ApplicationController
     end
   end
 
+  # clear session and display goodbye message
   get '/logout' do
     session.clear
     flash[:message] = "See you later!"
