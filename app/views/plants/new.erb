@@ -1,13 +1,3 @@
-<% if flash.has?(:success) %>
-  <div class="success">
-    <%= flash[:success] %>
-  </div>
-  <% else flash.has?(:error) %>
-    <div class="error">
-      <%= flash[:error] %>
-    </div>
-  <% end %>
-
 <h2>Create a new plant</h2>
 
 <form action='/plants' method="post">
@@ -30,8 +20,8 @@
     <input type="radio" id="twice_week" name="water_frequency" value="twice per week">
     <label for="twice_week">Twice per week</label><br>
 
-    <!-- <div class="button"> -->
-      <!-- <button type="submit" id="submit" value="Create Plant"></button> -->
+    <br>
+
       <button type="submit" value="Submit">Create Plant</button>
-    <!-- </div> -->
+
 </form>
