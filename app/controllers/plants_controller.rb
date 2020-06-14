@@ -31,23 +31,22 @@ class PlantsController < ApplicationController
       @plant.gardener = Helpers.current_user(session)
       redirect '/my_plants'
     else
-      flash[:error] = "Make sure you fill in all the details."
+      flash[:alert] = "Make sure you fill in all the details."
       redirect '/my_plants/new'
     end
   end
 
   # as a gardener, I want to be able to click on a plant and see that plant's own page
   # make sure user is logged in. if not, flash message and redirect to login
-  # else find plant by id and render plant's page
+  # else find plant by id and render plant's page. Fail if that plant doesn't belong to that gardener.
   get '/my_plants/:id' do
     @plant = Plant.find_by(params)
     @gardener = Helpers.current_user(session)
-
     if !Helpers.is_logged_in?(session)
-      flash[:message] = "You must be logged in to view plants"
+      flash[:alert] = "You must be logged in to view plants"
       redirect '/login'
     elsif @plant.gardener_id != Helpers.current_user(session).id
-      flash[:message] = "That's not your plant!"
+      flash[:alert] = "That's not your plant!"
       redirect '/login'
     else
       erb :'/plants/show_plant'
@@ -60,12 +59,10 @@ class PlantsController < ApplicationController
   # make sure gardeners can't edit other gardeners plants
   get '/my_plants/:id/edit' do
     if !Helpers.is_logged_in?(session)
-      flash[:message] = "You must be logged in to view plants"
+      flash[:alert] = "You must be logged in to view plants"
       redirect '/login'
     else
-      # @plant here gives me Oregano (id = 33) / correct
       @plant = Plant.find_by_id(params[:id])
-      # binding.pry
       erb :'/plants/edit_plant'
     end
   end
@@ -89,7 +86,7 @@ class PlantsController < ApplicationController
   post '/plants/:id/delete' do
     @plant = Plant.find_by_id(params[:id])
     if !Helpers.is_logged_in?(session)
-      flash[:error] = "You must be logged in to delete a plant"
+      flash[:alert] = "You must be logged in to delete a plant"
       redirect '/login'
     else
       @plant.delete

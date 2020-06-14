@@ -8,14 +8,15 @@ logout button -->
 
 <div class="welcome">
     <h2>Welcome, <%= @gardener.username %></h2>
-    <p>Here's what you've planted:</p>
+    <h3>My plants</h3>
 </div>
+<br>
 
 
     <!-- list out each plant for the logged in gardener -->
     <% @plants.each do |plant| %>
       <div class="plant-name">
-        <a href="/my_plants/<%= plant.id %>"><%= plant.name %></a>
+        <h3><a href="/my_plants/<%= plant.id %>"><%= plant.name %></a></h3>
       </div>
     <% end %>
 

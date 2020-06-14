@@ -16,9 +16,10 @@ class GardenersController < ApplicationController
     if params.none? {|key, value| value == ""}
       @gardener = Gardener.create(username: params[:username], email: params[:email], password: params[:password])
       session[:gardener_id] = @gardener.id
+      flash[:message] = "Thanks for signing up!"
       redirect '/my_plants'
     else
-      flash[:error] = "Please complete all fields to sign up"
+      flash[:alert] = "Please complete all fields to sign up"
       redirect '/signup'
     end
   end
@@ -42,7 +43,7 @@ class GardenersController < ApplicationController
       session[:gardener_id] = @gardener.id
       redirect '/my_plants'
     else
-      flash[:error] = "We couldn't find you. Please try again!"
+      flash[:alert] = "We couldn't find you. Please try again!"
       redirect '/login'
     end
   end

@@ -1,25 +1,17 @@
 <!-- we get to show_plant by a gardener clicking on one of their plants
 from their 'my_plants' page
-we also get here after a gardener has created a new plant (then we show it)
 we also get here after a gardener has edited a plant (then we show it) -->
 
 <h2><%=@plant.name%></h2>
 
-  <div class="subtext">
-    <h3>Planted on: </h3>
-  </div>
-
-<br>
-
-<%= @plant.amount_of_sun %><br>
-<%= @plant.water_frequency %><br>
+<h3>This plant needs: <%= @plant.amount_of_sun %></h3>
+<h3>Water it: <%= @plant.water_frequency %></h3>
 
 
 <br>
 <div class="button">
   <a href="/my_plants/<%= @plant.id %>/edit">Edit Plant</a>
 </div>
-
 <br>
 <form action="/plants/<%=@plant.id%>/delete" method="post">
   <input class="submit" type="submit" id="Delete Plant" value="Delete Plant">

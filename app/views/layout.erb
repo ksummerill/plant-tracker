@@ -5,15 +5,22 @@
     <link rel="stylesheet" href="/stylesheets/main.css" />
   </head>
   <body>
-    <div class="navbar">
-
-    </div>
 
    <div class="wrapper">
      <% if Helpers.is_logged_in?(session) %>
+        <div id="nav">
          <a class="active" href="/my_plants">Home</a>
          <a href="/logout">Logout</a>
+        </div>
      <% end %>
+
+     <% flash.keys.each do |type| %>
+       <div data-alert class="alert-box" tabindex="0" aria-live="assertive" role="alertdialog">
+         <%= flash[type] %>
+         <button tabindex="0" class="closebtn" onclick="this.parentElement.style.display='none';" aria-label="Close Alert">&times;</button>
+       </div>
+      <% end %>
+
       <%= yield %>
    </div>
 
