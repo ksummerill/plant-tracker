@@ -13,14 +13,18 @@ class GardenersController < ApplicationController
   # check to see if user exists. If so, flash message to tell them an account exists and redirect to login page
   # if not, Gardener.create to make a new instance of a Gardener and log that user in - show them their homepage (my_plants)
   post '/signup' do
-    if params.none? {|key, value| value == ""}
+    @user = Gardener.find_by(username: params[:username])
+    if @user
+      flash[:alert] = "That username is taken. Please choose a different one."
+      redirect '/signup'
+    elsif !params.none? {|key, value| value == ""}
+      flash[:alert] = "Please complete all fields to sign up."
+      redirect '/signup'
+    else
       @gardener = Gardener.create(username: params[:username], email: params[:email], password: params[:password])
       session[:gardener_id] = @gardener.id
       flash[:message] = "Thanks for signing up!"
       redirect '/my_plants'
-    else
-      flash[:alert] = "Please complete all fields to sign up"
-      redirect '/signup'
     end
   end
 
