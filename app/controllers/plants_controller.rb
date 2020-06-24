@@ -45,7 +45,7 @@ class PlantsController < ApplicationController
     if !Helpers.is_logged_in?(session)
       flash[:alert] = "You must be logged in to view plants"
       redirect '/login'
-    elsif @plant.gardener_id != Helpers.current_user(session).id
+    elsif @plant.gardener_id != @gardener.id
       flash[:alert] = "That's not your plant!"
       redirect '/login'
     else
@@ -58,12 +58,12 @@ class PlantsController < ApplicationController
   # else find plant by id and render edit form
   # make sure gardeners can't edit other gardeners plants
   get '/my_plants/:id/edit' do
-    if !Helpers.is_logged_in?(session)
+    @plant = Plant.find_by_id(params[:id])
+    if Helpers.is_logged_in?(session) && Helpers.current_user(session).id == @plant.gardener_id
+      erb :'/plants/edit_plant'
+    else
       flash[:alert] = "You must be logged in to view plants"
       redirect '/login'
-    else
-      @plant = Plant.find_by_id(params[:id])
-      erb :'/plants/edit_plant'
     end
   end
 
